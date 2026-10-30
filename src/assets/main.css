@@ -1,0 +1,176 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+@plugin '@tailwindcss/forms';
+
+@custom-variant hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
+@custom-variant group-hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:is(:where(.group):hover *) {
+      @slot;
+    }
+  }
+}
+
+@theme {
+  /* Simple Typography System */
+  --font-sans: 'Plus Jakarta Sans', 'Kantumruy Pro', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Theme Colors */
+  --color-medical-sky: oklch(86.5% 0.088 215);
+  --color-medical-sky-deep: oklch(48% 0.16 215);
+  --color-medical-teal: oklch(54% 0.145 178);
+  --color-medical-teal-light: oklch(88% 0.075 178);
+  --color-slate-dark-800: oklch(20.8% 0.042 265.8);
+  --color-slate-dark-900: oklch(30.8% 0.042 265.8);
+
+  /* Diagnostic Alerts & Monitoring Accents */
+  --color-061: oklch(78% 0.14 85);
+  --color-062: oklch(74% 0.145 80);
+  --color-063: oklch(70% 0.15 75);
+  --color-064: oklch(68% 0.155 70);
+  --color-065: oklch(66% 0.16 65);
+  --color-066: oklch(64% 0.165 55);
+  --color-067: oklch(62% 0.17 45);
+  --color-068: oklch(60% 0.175 35);
+  --color-069: oklch(58% 0.18 30);
+  --color-070: oklch(56% 0.185 25);
+
+  /* Clinical Sterile Slate Neutrals */
+  --color-071: oklch(99% 0.002 240);
+  --color-072: oklch(98% 0.004 240);
+  --color-nav: oklch(97% 0.006 240);
+}
+
+html {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+}
+
+/* Enforce perfect Khmer rendering without broken character spacing or colliding lines */
+html[lang='km'] {
+  font-family: 'Kantumruy Pro', sans-serif;
+  line-height: 1.75;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+}
+
+html[lang='km'] *,
+html[lang='km'] [class*='tracking-'] {
+  letter-spacing: normal !important;
+}
+
+html[lang='km'] .text-balance {
+  text-wrap: pretty !important;
+}
+
+/* Ensure Khmer headings have clean, comfortable line height to prevent overlapping sub-consonants and vowels */
+html[lang='km'] h1,
+html[lang='km'] h2,
+html[lang='km'] h3,
+html[lang='km'] h4,
+html[lang='km'] h5,
+html[lang='km'] h6 {
+  line-height: 1.55 !important;
+}
+
+/* Large display and hero titles */
+html[lang='km'] .text-4xl,
+html[lang='km'] .text-5xl,
+html[lang='km'] .text-6xl,
+html[lang='km'] .text-7xl,
+html[lang='km'] .text-8xl,
+html[lang='km'] .text-9xl {
+  line-height: 1.4 !important;
+}
+
+/* Relax tight Tailwind leading classes for Khmer script */
+html[lang='km'] .leading-none,
+html[lang='km'] .leading-tight,
+html[lang='km'] .leading-snug,
+html[lang='km'] [class*='leading-['] {
+  line-height: 1.6 !important;
+}
+
+/* Override large text with tight leading */
+html[lang='km'] .text-4xl.leading-tight,
+html[lang='km'] .text-5xl.leading-tight,
+html[lang='km'] .text-6xl.leading-tight,
+html[lang='km'] .text-7xl.leading-tight,
+html[lang='km'] [class*='text-4xl'][class*='leading-'],
+html[lang='km'] [class*='text-5xl'][class*='leading-'],
+html[lang='km'] [class*='text-6xl'][class*='leading-'],
+html[lang='km'] [class*='text-7xl'][class*='leading-'] {
+  line-height: 1.4 !important;
+}
+
+/* Prose and paragraphs in Khmer */
+html[lang='km'] p,
+html[lang='km'] li,
+html[lang='km'] .prose p {
+  line-height: 1.8 !important;
+}
+
+/* Enhanced Responsive Overflow & Word Breaking */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Prevent text overflow on narrow mobile screens */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+a,
+button {
+  overflow-wrap: break-word;
+}
+
+/* Safe Area Inset Helpers for iOS & Mobile */
+.pb-safe {
+  padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
+}
+
+.pt-safe {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+/* Thin Elegant Scrollbar for Matrix Grids & Horizontal Containers */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(48% 0.16 215 / 0.3) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: oklch(48% 0.16 215 / 0.3);
+  border-radius: 9999px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background-color: oklch(48% 0.16 215 / 0.6);
+  }
+}

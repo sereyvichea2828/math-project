@@ -1,0 +1,30 @@
+# ============================================================
+# Docker Compose — Math Project (Vue 3 + Vite SPA)
+# ============================================================
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+      args:
+        VITE_SITENAME: "${VITE_SITENAME:-Math Assignment Become to Backend}"
+    image: math-project:latest
+    container_name: math-project-app
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT:-8080}:80"
+    networks:
+      - proxy-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:80/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+# ── Connect to external reverse-proxy network ───────────────
+networks:
+  proxy-net:
+    external: true
